@@ -28,5 +28,5 @@
 // @todo: Вывести карточки на страницу
     initialCards.forEach(input => {
         const cardElement = cardCreate (input, cardDelete);
-        cardlist.append(cardElement);
+        cardList.append(cardElement);
     });

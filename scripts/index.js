@@ -21,12 +21,12 @@
     }
 
 // @todo: Функция удаления карточки
-    function cardDelete(cardElement) {
+    function deleteCard(cardElement) {
         cardElement.remove();
     }
 
 // @todo: Вывести карточки на страницу
     initialCards.forEach(input => {
-        const cardElement = cardCreate (input, cardDelete);
+        const cardElement = cardCreate (input, deleteCard);
         cardList.append(cardElement);
     });

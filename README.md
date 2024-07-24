@@ -1,2 +1,1 @@
-Проектная работа Mesto (6)
-https://github.com/krinknikov/mesto-project-ff
+Проектная работа Mesto (6) https://github.com/krinknikov/mesto-project-ff

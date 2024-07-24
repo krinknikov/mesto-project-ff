@@ -1,21 +1,23 @@
-export {openModal, closeModal};
+export { openModal, closeModal};
 
-function openModal(element) {
-  element.classList.add('popup_is-opened');
+// @todo: Открытие попапа
+function openModal(popup) {
+  popup.classList.add('popup_is-opened');
   document.body.style.overflow = 'hidden';
   document.addEventListener('keydown', closeByEscape);
 }
 
-function closeModal(element) {
-  element.classList.remove('popup_is-opened');
+// @todo: Закрытие попапа
+function closeModal(popup) {
+  popup.classList.remove('popup_is-opened');
   document.body.style.overflow = '';
   document.removeEventListener('keydown', closeByEscape);
 }
-//закрытие на esc
+
+// @todo: Закрытие попапа на оверлей
 function closeByEscape(evt) {
   if (evt.code === 'Escape') {
     const modal = document.querySelector('.popup_is-opened');
     closeModal(modal);
   }
 }
-

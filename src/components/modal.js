@@ -17,7 +17,7 @@ function closeModal(popup) {
 // @todo: Закрытие попапа на оверлей
 function closeByEscape(evt) {
   if (evt.code === 'Escape') {
-    const modal = document.querySelector('.popup_is-opened');
-    closeModal(modal);
+    const modals = document.querySelector('.popup_is-opened');
+    closeModal(modals);
   }
 }

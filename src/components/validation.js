@@ -1,14 +1,10 @@
-export { enableValidation, clearValidation };
+export { enableValidation, clearValidation, disableSubmitButton };
 
 // @todo: отобразитт ошибки
 const showInputError = (formElement, inputElement, errorMessage, validationParams) => {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add(validationParams.inputErrorClass);
-  if (inputElement.validity.valueMissing) {
-    errorElement.textContent = 'Вы пропустили это поле';
-  } else {
-    errorElement.textContent = errorMessage;
-  }
+  errorElement.textContent = errorMessage;
   errorElement.classList.add(validationParams.errorClass);
 };
 
@@ -41,7 +37,7 @@ const hasInvalidInput = (inputList) => {
   });
 };
 
-const buttonStatus = (inputList, buttonElement, validationParams) => {
+const toggleButtonStatus = (inputList, buttonElement, validationParams) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(validationParams.inactiveButtonClass);
     buttonElement.setAttribute('disabled', true);
@@ -58,11 +54,11 @@ const setEventListeners = (formElement, validationParams) => {
   const buttonElement = formElement.querySelector(
     validationParams.submitButtonSelector
   );
-  buttonStatus(inputList, buttonElement, validationParams);
+  toggleButtonStatus(inputList, buttonElement, validationParams);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
       checkInputValidity(formElement, inputElement, validationParams);
-      buttonStatus(inputList, buttonElement, validationParams);
+      toggleButtonStatus(inputList, buttonElement, validationParams);
     });
   });
 };
@@ -90,11 +86,15 @@ const clearValidation = (formElement, validationParams) => {
 
   inputList.textContent = '';
 
-  buttonStatus(inputList, buttonElement,validationParams.inactiveButtonClass);
+  toggleButtonStatus(inputList, buttonElement,validationParams.inactiveButtonClass);
   
   inputList.forEach((inputElement) => {
     hideInputError(formElement, inputElement, validationParams.inputErrorClass,validationParams.errorClass);
     inputElement.setCustomValidity('');
-    inputElement.classList.remove(validationParams.inputErrorClass);
   });
+};
+
+const disableSubmitButton = (buttonElement, validationParams) => {
+  buttonElement.classList.add(validationParams.inactiveButtonClass); 
+  buttonElement.setAttribute('disabled', true);
 };

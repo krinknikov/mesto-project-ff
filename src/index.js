@@ -2,7 +2,7 @@ import './pages/index.css'; // импорт стилей main
 
 import {createCard} from './components/card.js';
 import {openModal, closeModal} from './components/modal.js';
-import {enableValidation, clearValidation} from './components/validation.js';
+import {enableValidation, clearValidation, disableSubmitButton} from './components/validation.js';
 import {getUserInfo, getUserCards, updateUserInfo, postAddCard, deleteCard, updateUserAvatar, putCardLike, deleteCardLike} from './components/api.js';
 
 
@@ -17,7 +17,7 @@ const modalAvatar = document.querySelector('.popup_type_avatar');
 
 // @todo: DOM узлы2
 const popupContent = document.querySelectorAll('.popup__content');//убрать, не используется
-const modal = document.querySelectorAll('.popup');
+const modals = document.querySelectorAll('.popup');
 const modalWindowEdit = document.querySelector('.popup_type_edit');
 const profileForm = modalWindowEdit.querySelector('.popup__form');
 const nameInput = profileForm.querySelector('.popup__input_type_name');
@@ -26,7 +26,7 @@ const popupCard = document.querySelector('.popup_type_new-card');
 const newPopupForm = popupCard.querySelector('.popup__form');
 const nameCardElementInfo = newPopupForm.querySelector('.popup__input_type_card-name');
 const linkCardElementInfo = newPopupForm.querySelector('.popup__input_type_url');
-const modalWindowImage = document.querySelector('.popup_type_image');//modalWindowImage =>modalWIndowImage
+const modalWindowImage = document.querySelector('.popup_type_image');
 const popupImg = document.querySelector('.popup__image');
 const popupCaptionImage = document.querySelector('.popup__caption');
 const editButton = document.querySelector('.profile__edit-button');
@@ -36,14 +36,14 @@ const modalFormEditAvatar = document.forms['edit-avatar'];
 const popupAlert = document.querySelector('.popup_type_alert');
 const submitDeleteCard = popupAlert.querySelector('.popup__button-alert');
 
-// @todo: кнопка сохранения
-const renderLoading = (isLoading, buttonElement) => {
-  if (isLoading) {
-    buttonElement.textContent = 'Сохранение...';
-  } else {
-    buttonElement.textContent = 'Сохранение';
-    buttonElement.classList.add(validationParams.inactiveButtonClass);
-    buttonElement.setAttribute('disabled', true);
+// @todo: кнопка сохранения 
+
+const renderLoading = (isLoading, buttonElement) => { 
+  if (isLoading) { 
+    buttonElement.textContent = 'Сохранение...'; 
+  } else { 
+    buttonElement.textContent = 'Сохранение'; 
+    disableSubmitButton(buttonElement, validationParams);//проверить!!!!
   }
 };
 
@@ -206,11 +206,11 @@ Promise.all([getUserCards(), getUserInfo()])
   });
 
 // @todo: Закрытие всех попапов по крестику и оверлею
-modal.forEach((popup) => {
+modals.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if (evt.target === popup || evt.target.classList.contains('popup__close')) {
-      const modal = document.querySelector('.popup_is-opened');
-      closeModal(modal);
+      const modals = document.querySelector('.popup_is-opened');
+      closeModal(modals);
     }
   });
 });
